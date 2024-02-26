@@ -12,7 +12,8 @@ const Form = ({ onSuccess, onError }) => {
     async (evt) => {
       evt.preventDefault();
       setSending(true);
-      // We try to call mockContactApi
+      // we call success if form is valid
+      onSuccess()
       try {
         await mockContactApi();
         setSending(false);

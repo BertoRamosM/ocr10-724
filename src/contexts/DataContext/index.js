@@ -26,17 +26,29 @@ export const DataProvider = ({ children }) => {
       setError(err);
     }
   }, []);
+  
   useEffect(() => {
     if (data) return;
     getData();
-  });
+    // dependency array
+  },[data, getData]);
   
+// we check for the last item sorted by date
+  const events = data?.events;
+  const sortedEvents = events?.sort((evtA, evtB) =>
+    new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
+  );
+  const last = sortedEvents?.[0];
+
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
         error,
+        // we pass the last to use it in other components
+        last
       }}
     >
       {children}

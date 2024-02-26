@@ -5,14 +5,16 @@
   width: 100%;
   max-width: 1440px;
   height: 586px;
+  overflow: hidden;
   .SlideCard {
-    width: 100%;
+    max-width: 100%;
     left: 0;
     top: 0;
     position: absolute;
     transition: opacity 1s;
     &--hide {
       opacity: 0;
+      
     }
     &--display {
       animation: slide 1s forwards;
