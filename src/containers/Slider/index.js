@@ -7,6 +7,7 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
+  // we use only the focus from data and we sort by date
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
   );
@@ -14,7 +15,8 @@ const Slider = () => {
   const currentImg = data?.focus.length;
 
   const nextCard = () => {
-    setTimeout(() => setIndex(index < currentImg - 1 ? index + 1 : 0), 5000);
+    setTimeout(() => setIndex(index < currentImg - 1 ? index + 1 : 0), 2000);
+    
   };
   useEffect(() => {
     nextCard();
@@ -41,9 +43,9 @@ const Slider = () => {
 
       <div className="SlideCard__paginationContainer">
         <div className="SlideCard__pagination">
-          {byDateDesc?.map((image, radioIdx) => (
+          {byDateDesc?.map((current, radioIdx) => (
             <input
-              key={`${image.title}`}
+              key={`${current.title}`}
               type="radio"
               name="radio-button"
               checked={index === radioIdx}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EventCard from "../../components/EventCard";
 import Select from "../../components/Select";
 import { useData } from "../../contexts/DataContext";
@@ -11,19 +11,32 @@ const perPage = 9;
 
 const EventList = () => {
   const { data, error } = useData();
-  const [type, setType] = useState();
+  const [type, setType] = useState("conférence");
   const [currentPage, setCurrentPage] = useState(1);
+  const [filteredEvents, setFilteredEvents] = useState(data)
 
   // starting index for each page
   const startIndex = (currentPage - 1) * perPage;
   // last index for each page
   const endIndex = currentPage * perPage;
 
+
+  
   // we filter by type of event
-  const filteredEvents =
-    (type
-      ? data?.events.filter((event) => event.type === type)
-      : data?.events) || [];
+  useEffect(() => {
+    console.log(data)
+    setFilteredEvents(
+      (type
+        ? data?.events.filter((event) => event.type === type)
+        : data?.events) || []
+    )
+  },
+    [type]
+  );
+  
+  
+  console.log(type)
+  console.log(filteredEvents)
 
   // we cut the array to display
   const paginatedEvents = filteredEvents.slice(startIndex, endIndex);

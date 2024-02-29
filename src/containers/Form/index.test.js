@@ -14,9 +14,13 @@ describe("When Events is created", () => {
     it("the success action is called", async () => {
       const onSuccess = jest.fn();
       render(<Form onSuccess={onSuccess} />);
-      // await the button envoyer to be rendered
-      await screen.findByText("Envoyer");
-      fireEvent.click(screen.getByText("Envoyer"));
+      fireEvent(
+        await screen.findByTestId("button-test-id"),
+        new MouseEvent("click", {
+          cancelable: true,
+          bubbles: true,
+        })
+      );
       await screen.findByText("En cours");
       await screen.findByText("Envoyer");
       expect(onSuccess).toHaveBeenCalled();

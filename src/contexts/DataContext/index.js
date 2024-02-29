@@ -38,6 +38,7 @@ export const DataProvider = ({ children }) => {
   const sortedEvents = events?.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
   );
+  // we declare last item
   const last = sortedEvents?.[0];
 
 
@@ -47,7 +48,7 @@ export const DataProvider = ({ children }) => {
       value={{
         data,
         error,
-        // we pass the last to use it in other components
+        // we pass the last tem ito use it in other components
         last
       }}
     >
