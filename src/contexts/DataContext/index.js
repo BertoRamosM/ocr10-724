@@ -36,7 +36,7 @@ export const DataProvider = ({ children }) => {
 // we check for the last item sorted by date
   const events = data?.events;
   const sortedEvents = events?.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
+    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
   // we declare last item
   const last = sortedEvents?.[0];

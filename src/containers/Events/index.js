@@ -11,32 +11,17 @@ const perPage = 9;
 
 const EventList = () => {
   const { data, error } = useData();
-  const [type, setType] = useState("conférence");
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredEvents, setFilteredEvents] = useState(data)
+
+  useEffect(() => {
+    setFilteredEvents(data?.events || []);
+  }, [data]);
 
   // starting index for each page
   const startIndex = (currentPage - 1) * perPage;
   // last index for each page
   const endIndex = currentPage * perPage;
-
-
-  
-  // we filter by type of event
-  useEffect(() => {
-    console.log(data)
-    setFilteredEvents(
-      (type
-        ? data?.events.filter((event) => event.type === type)
-        : data?.events) || []
-    )
-  },
-    [type]
-  );
-  
-  
-  console.log(type)
-  console.log(filteredEvents)
 
   // we cut the array to display
   const paginatedEvents = filteredEvents.slice(startIndex, endIndex);
@@ -44,7 +29,11 @@ const EventList = () => {
   const changeType = (evtType) => {
     // if we filter, we go back to page 1
     setCurrentPage(1);
-    setType(evtType);
+    setFilteredEvents(
+      (evtType
+        ? data?.events.filter((event) => event.type === evtType)
+        : data?.events) || []
+    );
   };
 
   // we calculate the number of pages
@@ -64,7 +53,7 @@ const EventList = () => {
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
-            {paginatedEvents.map((event) => (
+            {paginatedEvents?.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
