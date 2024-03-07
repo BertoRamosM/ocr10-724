@@ -15,9 +15,10 @@ const Slider = () => {
   const currentImg = data?.focus.length;
 
   const nextCard = () => {
-    setTimeout(() => setIndex(index < currentImg - 1 ? index + 1 : 0), 2000);
-    
+    setTimeout(() => setIndex(index < currentImg - 1 ? index + 1 : 0), 5000);
   };
+
+  
   useEffect(() => {
     nextCard();
   },[nextCard]);

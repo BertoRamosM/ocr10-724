@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { api, DataProvider } from "../../contexts/DataContext";
 import Events from "./index";
 
@@ -108,4 +108,65 @@ describe("When Events is created", () => {
       await screen.findByText("1 site web dédié");
     });
   });
+
+
+
+
+  describe("Pagination", () => {
+    const perPage = 9;
+    it("should display correct number of events per page", async () => {
+      api.loadData = jest.fn().mockReturnValue(data);
+      render(
+        <DataProvider>
+          <Events />
+        </DataProvider>
+      );
+
+
+      // check initial number of events displayed
+      expect(screen.getAllByTestId("event-card")).toHaveLength(perPage);
+
+      // click on next page
+      fireEvent.click(screen.getByText("2"));
+
+      // wait for next page of events to load
+      await waitFor(() => {
+        expect(screen.getByText("soirée entreprise")).toBeInTheDocument();
+      });
+
+      // check number of events displayed on second page
+      expect(screen.getAllByTestId("event-card")).toHaveLength(
+        data.events.length - perPage
+      );
+    });
+
+    it("should change events when clicking on page number", async () => {
+      api.loadData = jest.fn().mockReturnValue(data);
+      render(
+        <DataProvider>
+          <Events />
+        </DataProvider>
+      );
+
+      // wait for events to be loaded
+      await screen.findByText("avril");
+
+      // click on page 2
+      fireEvent.click(screen.getByText("2"));
+
+      // Wait for page 2 events to load
+      await waitFor(() => {
+        expect(screen.getByText("soirée entreprise")).toBeInTheDocument();
+      });
+      // click on page 1 back again
+      fireEvent.click(screen.getByText("1"));
+
+      // wait for page 1 events to be loaded
+      await waitFor(() => {
+        expect(screen.getByText("Forum #productCON")).toBeInTheDocument();
+      });
+
+    });
+  });
+
 });

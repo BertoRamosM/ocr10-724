@@ -1,5 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
+import EventList from "../../containers/Events";
+import ServiceCard from "../../components/ServiceCard";
+import PeopleCard from "../../components/PeopleCard";
 
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
@@ -30,15 +33,15 @@ describe("When Form is created", () => {
 
 describe("When a page is created", () => {
   it("a list of events is displayed", () => {
-    // to implement
+    <EventList />
   })
   it("a list a people is displayed", () => {
-    // to implement
+    <PeopleCard />
   })
   it("a footer is displayed", () => {
-    // to implement
+   <footer />
   })
   it("an event card, with the last event, is displayed", () => {
-    // to implement
+   <ServiceCard />
   })
 });

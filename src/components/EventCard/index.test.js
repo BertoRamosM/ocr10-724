@@ -45,4 +45,16 @@ describe("When a event card is created", () => {
       expect(cardElement.className.includes("EventCard--small")).toEqual(true);
     });
   });
+  it("uses default alt text if imageAlt prop is not provided", () => {
+    render(
+      <EventCard
+        imageSrc="http://src-image"
+        title="test event"
+        label="test label"
+        date={new Date("2022-04-01")}
+      />
+    );
+    const imageElement = screen.getByTestId("card-image-testid");
+    expect(imageElement.alt).toEqual("image"); // Default alt text
+  });
 });
