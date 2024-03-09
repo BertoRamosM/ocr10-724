@@ -9,7 +9,7 @@ const Slider = () => {
   const [index, setIndex] = useState(0);
   // we use only the focus from data and we sort by date
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
+    new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
 
   const currentImg = data?.focus.length;
