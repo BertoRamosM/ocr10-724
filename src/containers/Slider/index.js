@@ -7,7 +7,7 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  // we use only the focus from data and we sort by date
+  // we use only the 'focus' from data and we sort by date
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
@@ -21,7 +21,9 @@ const Slider = () => {
   
   useEffect(() => {
     nextCard();
-  },[nextCard]);
+  }, [nextCard]);
+  
+  
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (

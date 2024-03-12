@@ -31,7 +31,7 @@ describe("When Form is created", () => {
 });
 
 
-describe("When a page is created", () => {
+describe("When the page is loaded", () => {
   it("a list of events is displayed", () => {
     <EventList />
   })
@@ -41,7 +41,7 @@ describe("When a page is created", () => {
   it("a footer is displayed", () => {
    <footer />
   })
-  it("an event card, with the last event, is displayed", () => {
+  it("an event card, ,with the last event is displayed", () => {
    <ServiceCard />
   })
 });
